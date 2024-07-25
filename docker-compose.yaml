@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  grupoplan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nginx-grupoplan
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/usr/share/nginx/html
+    restart: always
+    networks:
+      - grupoplan
+
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: grupoplan
+      MYSQL_DATABASE: grupoplan
+      MYSQL_USER: grupoplan
+      MYSQL_PASSWORD: grupoplan
+    volumes:
+      - .docker/dbdata:/var/lib/mysql
+    networks:
+      - grupoplan
+
+networks:
+  grupoplan:
+    driver: bridge
