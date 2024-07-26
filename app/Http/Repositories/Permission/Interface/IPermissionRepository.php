@@ -3,6 +3,7 @@
 namespace App\Http\Repositories\Permission\Interface;
 
 use App\Models\Permission;
+use App\Models\User;
 
 interface IPermissionRepository
 {
@@ -10,4 +11,5 @@ interface IPermissionRepository
     public function findById(int $id);
     public function findAll():object;
     public function delete(Permission $permission);
+    public function insertUserPermission(User $user, Permission $permission);
 }

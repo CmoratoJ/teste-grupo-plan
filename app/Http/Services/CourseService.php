@@ -21,8 +21,7 @@ class CourseService
     public function create(CreateOrUpdateCourseRequest $request) 
     {
         $this->course->name = $request->get('name');
-        $this->course->initialDate = $request->get('initialDate');
-        $this->course->endDate = $request->get('endDate');
+        $this->courseRepository->persist($this->course);
         return new CourseResource($this->course);
     }
 

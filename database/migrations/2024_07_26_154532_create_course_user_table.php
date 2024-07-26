@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Course::class);
             $table->foreignIdFor(User::class);
+            $table->dateTime('initialDate');
+            $table->dateTime('endDate');
             $table->timestamps();
         });
     }

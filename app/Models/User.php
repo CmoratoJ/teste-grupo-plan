@@ -52,6 +52,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Permission::class);
     }
 
+    public function courses(): BelongsToMany{
+        return $this->belongsToMany(Course::class);
+    }
+
     public function hasPermission(string $permission): bool
     {
         return $this->permissions()->where('name', $permission)->exists();

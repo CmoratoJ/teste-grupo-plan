@@ -14,6 +14,7 @@ Route::middleware(RespondWithJson::class)->group(function () {
         Route::apiResource('/users', UserController::class);
         Route::apiResource('/permissions', PermissionController::class);
         Route::apiResource('/courses', CourseController::class);
+        Route::post('/userPermission', [PermissionController::class, 'insertUserPermission']);
     });
 }); 
 

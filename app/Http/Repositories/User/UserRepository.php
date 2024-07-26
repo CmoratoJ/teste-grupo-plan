@@ -20,7 +20,7 @@ class UserRepository implements IUserRepository
 
     public function findAll(): object
     {
-        return User::all();   
+        return User::with('permissions')->get();
     }
 
     public function delete(User $user)
