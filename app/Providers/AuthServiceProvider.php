@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('default', function (User $user) {
-            return $user->hasPermission('manage-users');
+            return $user->hasPermission('others');
         });
     }
 }

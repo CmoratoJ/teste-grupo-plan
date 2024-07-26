@@ -15,7 +15,7 @@ class UserRepository implements IUserRepository
 
     public function findById(int $id)
     {
-        return User::find($id);
+        return User::with('permissions')->find($id);
     }
 
     public function findAll(): object
