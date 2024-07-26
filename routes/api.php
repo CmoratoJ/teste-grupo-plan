@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ProtectedRouteAuth;
@@ -12,6 +13,7 @@ Route::middleware(RespondWithJson::class)->group(function () {
     Route::middleware(ProtectedRouteAuth::class)->group(function () {
         Route::apiResource('/users', UserController::class);
         Route::apiResource('/permissions', PermissionController::class);
+        Route::apiResource('/courses', CourseController::class);
     });
 }); 
 

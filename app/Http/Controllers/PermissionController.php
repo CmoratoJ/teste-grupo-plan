@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\Permission\Interface\IPermissionRepository;
+use App\Http\Repositories\Permission\PermissionRepository;
 use App\Http\Requests\CreateOrUpdatePermissionRequest;
 use App\Http\Services\PermissionService;
 
@@ -12,7 +12,7 @@ class PermissionController extends Controller
 
     public function __construct()
     {
-        $this->permissionService = new PermissionService(new IPermissionRepository);
+        $this->permissionService = new PermissionService(new PermissionRepository);
     }
 
     public function index()
