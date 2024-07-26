@@ -2,65 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePermissionRequest;
-use App\Http\Requests\UpdatePermissionRequest;
-use App\Models\Permission;
+use App\Http\Repositories\Permission\Interface\IPermissionRepository;
+use App\Http\Requests\CreateOrUpdatePermissionRequest;
+use App\Http\Services\PermissionService;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private PermissionService $permissionService;
+
+    public function __construct()
+    {
+        $this->permissionService = new PermissionService(new IPermissionRepository);
+    }
+
     public function index()
     {
-        //
+        $permissions = $this->permissionService->findAll();
+        return response()->json(['status' => true, $permissions => $permissions], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(CreateOrUpdatePermissionRequest $request)
     {
-        //
+        $permission = $this->permissionService->create($request);
+        return response()->json(['status' => true, 'permission' => $permission], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePermissionRequest $request)
+    public function show(int $id)
     {
-        //
+        $permission = $this->permissionService->findById($id);
+        return response()->json(['status' => true, 'permission' => $permission], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Permission $permission)
+    public function update(CreateOrUpdatePermissionRequest $request, int $id)
     {
-        //
+        $permission = $this->permissionService->update($request, $id);
+        return response()->json(['status' => true, 'permission' => $permission], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Permission $permission)
+    public function destroy(int $id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePermissionRequest $request, Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Permission $permission)
-    {
-        //
+        $this->permissionService->delete($id);
+        return response()->json(['status' => true], 200);
     }
 }
