@@ -45,6 +45,7 @@ Route::middleware(RespondWithJson::class)->group(function () {
                 Route::post('/courses', 'store');
                 Route::put('/courses/{id}', 'update');
                 Route::delete('/courses/{id}', 'destroy');
+                Route::post('/addUserInCourse', 'addUserInCourse');
             });
             Route::get('/courses', 'index');
             Route::get('/courses/{id}', 'show');

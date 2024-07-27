@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\Course\CourseRepository;
+use App\Http\Repositories\User\UserRepository;
+use App\Http\Requests\AddUserInCourseRequest;
 use App\Http\Requests\CreateOrUpdateCourseRequest;
 use App\Http\Services\CourseService;
 
@@ -12,7 +14,10 @@ class CourseController extends Controller
 
     public function __construct()
     {
-        $this->courseService = new CourseService(new CourseRepository);
+        $this->courseService = new CourseService(
+            new CourseRepository, 
+            new UserRepository
+        );
     }
 
     public function index()
@@ -43,5 +48,11 @@ class CourseController extends Controller
     {
         $this->courseService->delete($id);
         return response()->json(['status'=> true],200);
+    }
+
+    public function addUserInCourse(AddUserInCourseRequest $request)
+    {
+        $courseUser = $this->courseService->addUserInCourse($request);
+        return response()->json(['status' => true, 'user' => $courseUser], 200);
     }
 }

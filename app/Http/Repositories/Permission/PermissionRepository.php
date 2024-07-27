@@ -31,7 +31,8 @@ class PermissionRepository implements IPermissionRepository
         $permission->delete();   
     }
     
-    public function insertUserPermission(User $user, Permission $permission) {
+    public function insertUserPermission(User $user, Permission $permission)
+    {
         DB::table('permission_user')->insert([
             'permission_id' => $permission->id,
             'user_id' => $user->id,
