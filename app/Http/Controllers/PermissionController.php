@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\Permission\PermissionRepository;
+use App\Http\Repositories\PermissionUser\PermissionUserRepository;
 use App\Http\Repositories\User\UserRepository;
 use App\Http\Requests\CreateOrUpdatePermissionRequest;
 use App\Http\Requests\CreateUserPermissionRequest;
@@ -16,7 +17,8 @@ class PermissionController extends Controller
     {
         $this->permissionService = new PermissionService(
             new PermissionRepository, 
-            new UserRepository
+            new UserRepository,
+            new PermissionUserRepository
         );
     }
 
@@ -54,5 +56,11 @@ class PermissionController extends Controller
     {
         $userPermission = $this->permissionService->insertUserPermission($request);
         return response()->json(['status'=> true, 'userPermission' => $userPermission],200);
+    }
+
+    public function getUserPermissions()
+    {
+        $permissions = $this->permissionService->getUserPermissions();
+        return response()->json(['status' => true, 'permissions' => $permissions], 200);
     }
 }

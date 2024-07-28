@@ -15,12 +15,12 @@ class UserRepository implements IUserRepository
 
     public function findById(int $id)
     {
-        return User::with('permissions')->find($id);
+        return User::find($id);
     }
 
     public function findAll(): object
     {
-        return User::with('permissions')->get();
+        return User::all();
     }
 
     public function delete(User $user)

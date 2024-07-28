@@ -34,6 +34,7 @@ Route::middleware(RespondWithJson::class)->group(function () {
                 Route::put('/permissions/{id}', 'update');
                 Route::delete('/permissions/{id}', 'destroy');
                 Route::post('/userPermission', 'insertUserPermission');
+                Route::get('/userPermissions', 'getUserPermissions');
             });
             Route::get('/permissions', 'index');
             Route::get('/permissions/{id}', 'show');

@@ -53,6 +53,6 @@ class CourseController extends Controller
     public function addUserInCourse(AddUserInCourseRequest $request)
     {
         $courseUser = $this->courseService->addUserInCourse($request);
-        return response()->json(['status' => true, 'user' => $courseUser], 200);
+        return response()->json(['status' => true, 'data' => $courseUser], 200);
     }
 }

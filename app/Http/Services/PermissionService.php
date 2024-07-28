@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Http\Repositories\Permission\Interface\IPermissionRepository;
+use App\Http\Repositories\PermissionUser\Interface\IPermissionUserRepository;
 use App\Http\Repositories\User\Interface\IUserRepository;
 use App\Http\Requests\CreateOrUpdatePermissionRequest;
 use App\Http\Requests\CreateUserPermissionRequest;
@@ -13,15 +14,19 @@ class PermissionService
 {
     private $permissionRepository;
     private $userRepository;
+    private $permissionUserRepository;
     private $permission;
+    private $permissions = [];
 
     public function __construct(
         IPermissionRepository $permissionRepository,
-        IUserRepository $userRepository
+        IUserRepository $userRepository,
+        IPermissionUserRepository $permissionUserRepository
     )
     {
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
+        $this->permissionUserRepository = $permissionUserRepository;
         $this->permission = new Permission();
     }
 
@@ -68,5 +73,17 @@ class PermissionService
         $user = $this->userRepository->findById($request->get('userId'));
         $userPermission = $this->permissionRepository->insertUserPermission($user, $permission);
         return PermissionResource::collection($userPermission);
+    }
+
+    public function getUserPermissions()
+    {
+        $userPermissions = $this->permissionUserRepository->getUserPermissions();
+
+        $userPermissions->each(function ($userPermission) {
+            $permission = $this->permissionRepository->findById($userPermission->permission_id);
+            array_push($this->permissions, $permission->name);
+        });
+
+        return new PermissionResource($this->permissions);
     }
 }
