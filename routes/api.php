@@ -22,6 +22,7 @@ Route::middleware(RespondWithJson::class)->group(function () {
                 Route::post('/users', 'store');
                 Route::put('/users/{id}', 'update');
                 Route::delete('/users/{id}', 'destroy');
+                Route::get('/users/resume', 'getResume');
             });
             Route::get('/users', 'index');
             Route::get('/users/{id}', 'show');
@@ -47,6 +48,7 @@ Route::middleware(RespondWithJson::class)->group(function () {
                 Route::put('/courses/{id}', 'update');
                 Route::delete('/courses/{id}', 'destroy');
                 Route::post('/addUserInCourse', 'addUserInCourse');
+                Route::get('/courses/resume', 'getResume');
             });
             Route::get('/courses', 'index');
             Route::get('/courses/{id}', 'show');

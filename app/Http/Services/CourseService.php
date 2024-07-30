@@ -14,6 +14,7 @@ class CourseService
     private $courseRepository;
     private $userRepository;
     private $course;
+    private $resume = [];
 
     public function __construct(
         ICourseRepository $courseRepository, 
@@ -67,5 +68,21 @@ class CourseService
         
         $courseUser = $this->courseRepository->addUserInCourse($user, $course);
         return new CourseResource($courseUser);
+    }
+
+    public function getResume()
+    {
+        $allCourses = $this->courseRepository->findAll();
+        $coursesInProgress = $this->courseRepository->getCoursesInProgress();
+        $completedCourses = $this->courseRepository->getCompletedCourses();
+        $pendingCourses = $this->courseRepository->getPendingCourses();
+
+        $this->resume = [
+            'inProgress' => round((count($coursesInProgress) / count($allCourses)) * 100),
+            'completed' => round((count($completedCourses) / count($allCourses)) * 100),
+            'pending' => round((count($pendingCourses) / count($allCourses)) * 100)
+        ];
+
+        return new CourseResource($this->resume);
     }
 }

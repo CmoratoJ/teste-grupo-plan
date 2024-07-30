@@ -5,15 +5,14 @@ namespace Database\Seeders;
 use App\Models\Permission;
 use App\Models\PermissionUser;
 use App\Models\User;
+use DateTime;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
         $user = new User();
-        $permission = new Permission();
         $permissionUser = new PermissionUser();
 
         $user->name = 'Admin';
@@ -21,11 +20,18 @@ class PermissionSeeder extends Seeder
         $user->password = 'admin';
         $user->save();
 
-        $permission->name = 'admin';
-        $permission->save();
+        $permissions = ['admin', 'others'];
 
-        $permissionUser->user_id = $user->id;
-        $permissionUser->permission_id = $permission->id;
+        foreach ($permissions as $permission) {
+            Permission::insert([
+                'name' => $permission,
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime()
+            ]);
+        }
+
+        $permissionUser->user_id = 1;
+        $permissionUser->permission_id = 1;
         $permissionUser->save();
     }
 }

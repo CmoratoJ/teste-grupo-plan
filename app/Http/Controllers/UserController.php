@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\Course\CourseRepository;
 use App\Http\Repositories\User\UserRepository;
 use App\Http\Requests\CreateOrUpdateUserRequest;
 use App\Http\Services\UserService;
@@ -44,5 +45,11 @@ class UserController extends Controller
     {
         $this->userService->delete($id);
         return response()->json(['status' => true], 204);
+    }
+
+    public function getResume()
+    {
+        $resume = $this->userService->getResume();
+        return response()->json(['status' => true, 'resume' => $resume], 200);
     }
 }

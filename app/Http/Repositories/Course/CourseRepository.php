@@ -33,9 +33,47 @@ class CourseRepository implements ICourseRepository
 
         $courseUser->user_id = $user->id;
         $courseUser->course_id = $course->id;
-        $courseUser->initialDate = new DateTime();
+        $courseUser->initial_date = new DateTime();
         $courseUser->save();
 
         return $courseUser;
     }
+
+    public function getCoursesInProgress()
+    {
+        $courses = Course::with('users')->get();
+
+        $filteredCourses = $courses->filter(
+            fn ($course) => $course->users->contains(
+                fn ($user) => is_null($user->pivot->end_date)
+            )
+        );
+
+        return $filteredCourses;
+    }
+
+    public function getCompletedCourses()
+    {
+        $courses = Course::with('users')->get();
+
+        $filteredCourses = $courses->filter(
+            fn ($course) => $course->users->contains(
+                fn ($user) => !is_null($user->pivot->end_date)
+            )
+        );
+
+        return $filteredCourses;
+    }
+
+    public function getPendingCourses()
+    {
+        $courses = Course::with('users')->get();
+
+        $filteredCourses = $courses->filter(
+            fn ($course) => !$course->users->contains(fn ($user) => $user)
+        );
+        
+        return $filteredCourses;
+    }
+
 }

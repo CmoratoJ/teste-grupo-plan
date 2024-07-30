@@ -10,4 +10,6 @@ interface IUserRepository
     public function findById(int $id);
     public function findAll():object;
     public function delete(User $user);
+    public function findUsersWithCourses();
+    public function findUserWithPermissions();
 }

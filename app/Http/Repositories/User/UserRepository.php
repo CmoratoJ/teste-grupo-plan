@@ -27,4 +27,14 @@ class UserRepository implements IUserRepository
     {
         $user->delete();   
     }
+
+    public function findUsersWithCourses()
+    {
+        return User::with('courses')->get();
+    }
+
+    public function findUserWithPermissions()
+    {
+        return User::with('permissions')->get();
+    }
 }

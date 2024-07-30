@@ -55,4 +55,10 @@ class CourseController extends Controller
         $courseUser = $this->courseService->addUserInCourse($request);
         return response()->json(['status' => true, 'data' => $courseUser], 200);
     }
+
+    public function getResume()
+    {
+        $resume = $this->courseService->getResume();
+        return response()->json(['status' => true, 'resume' => $resume], 200);
+    }
 }

@@ -11,6 +11,9 @@ class UserService
 {
     private $userRepository;
     private $user;
+    private $resume = [];
+    private $inProgress = 0;
+    private $completed = 0;
 
     public function __construct(IUserRepository $userRepository)
     {
@@ -56,5 +59,33 @@ class UserService
     {
         $user = $this->userRepository->findById($id);
         $this->userRepository->delete($user);
+    }
+
+    public function getResume()
+    {
+        $usersWithCourses = $this->userRepository->findUsersWithCourses();
+
+        $usersWithCourses->each(function ($user) {
+            $this->inProgress = 0;
+            $this->completed = 0;
+            $this->resume[$user->id] = [
+                'name' => $user->name,
+                'inProgress' => $this->inProgress,
+                'completed' => $this->completed
+            ];
+            $user->courses->each(function ($course) use ($user) {
+                if (is_null($course->pivot->end_date)) {
+                    $this->inProgress = $this->inProgress + 1;
+                    $this->resume[$user->id]['inProgress'] = $this->inProgress;
+                }
+
+                if (!is_null($course->pivot->end_date)) {
+                    $this->completed = $this->completed + 1;
+                    $this->resume[$user->id]['completed'] =  $this->completed;
+                }
+            });
+        });
+
+        return new UserResource($this->resume);
     }
 }

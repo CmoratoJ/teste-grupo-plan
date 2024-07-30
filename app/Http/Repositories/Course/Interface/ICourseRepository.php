@@ -12,4 +12,7 @@ interface ICourseRepository
     public function findAll():object;
     public function delete(Course $course);
     public function addUserInCourse(User $user, Course $course);
+    public function getCoursesInProgress();
+    public function getCompletedCourses();
+    public function getPendingCourses();
 }
