@@ -63,7 +63,7 @@ admin@admin.com
 ```
 - E a senha:
 ```
-admin@admin.com
+admin
 ```
 
 ✅ Pronto! Agora você está pronto para usar o projeto na sua máquina com essas etapas simples.
