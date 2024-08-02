@@ -16,7 +16,7 @@ services:
   grupoplanfront:
     build:
       context: ../teste-grupo-plan-front
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     container_name: grupoplanfront
     ports:
       - 8080:8080

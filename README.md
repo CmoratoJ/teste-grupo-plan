@@ -49,6 +49,10 @@ php artisan migrate
 ```
 php artisan db:seed --class=PermissionSeeder
 ```
+- Rode o comando abaixo para gerar o jwt secret:
+```
+php artisan jwt:secret
+```
 - Após esses passos basta acessar o link :
 ```
 http://localhost:8080/
