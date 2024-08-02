@@ -25,6 +25,7 @@ Route::middleware(RespondWithJson::class)->group(function () {
                 Route::get('/users/resume', 'getResume');
             });
             Route::get('/users', 'index');
+            Route::get('/usersPermission', 'findUserWithPermission');
             Route::get('/users/{id}', 'show');
         });
         

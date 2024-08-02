@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\Course\CourseRepository;
 use App\Http\Repositories\User\UserRepository;
 use App\Http\Requests\CreateOrUpdateUserRequest;
 use App\Http\Services\UserService;
@@ -51,5 +50,11 @@ class UserController extends Controller
     {
         $resume = $this->userService->getResume();
         return response()->json(['status' => true, 'resume' => $resume], 200);
+    }
+
+    public function findUserWithPermission()
+    {
+        $users = $this->userService->findUsersWithPermission();
+        return response()->json(['status' => true, 'users' => $users], 200);
     }
 }

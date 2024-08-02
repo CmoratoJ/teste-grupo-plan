@@ -78,9 +78,9 @@ class CourseService
         $pendingCourses = $this->courseRepository->getPendingCourses();
 
         $this->resume = [
-            'inProgress' => round((count($coursesInProgress) / count($allCourses)) * 100),
-            'completed' => round((count($completedCourses) / count($allCourses)) * 100),
-            'pending' => round((count($pendingCourses) / count($allCourses)) * 100)
+            'inProgress' => count($allCourses) > 0 ? round((count($coursesInProgress) / count($allCourses)) * 100) : 0,
+            'completed' => count($allCourses) > 0 ? round((count($completedCourses) / count($allCourses)) * 100) : 0,
+            'pending' => count($allCourses) > 0 ? round((count($pendingCourses) / count($allCourses)) * 100) : 0
         ];
 
         return new CourseResource($this->resume);

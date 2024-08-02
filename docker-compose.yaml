@@ -12,6 +12,21 @@ services:
     restart: always
     networks:
       - grupoplan
+    
+  grupoplanfront:
+    build:
+      context: ../teste-grupo-plan-front
+      dockerfile: Dockerfile.dev
+    container_name: grupoplanfront
+    ports:
+      - 8080:8080
+    volumes:
+      - ../teste-grupo-plan-front:/app
+      - /app/node_modules
+    networks:
+      - grupoplan
+    depends_on:
+      - grupoplan
 
   db:
     image: mysql

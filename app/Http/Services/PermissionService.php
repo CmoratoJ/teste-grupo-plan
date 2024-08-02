@@ -72,7 +72,7 @@ class PermissionService
         $permission = $this->permissionRepository->findById($request->get('permissionId'));
         $user = $this->userRepository->findById($request->get('userId'));
         $userPermission = $this->permissionRepository->insertUserPermission($user, $permission);
-        return PermissionResource::collection($userPermission);
+        return new PermissionResource($userPermission);
     }
 
     public function getUserPermissions()

@@ -88,4 +88,10 @@ class UserService
 
         return new UserResource($this->resume);
     }
+
+    public function findUsersWithPermission()
+    {
+        $user = $this->userRepository->findUserWithPermissions();
+        return new UserResource($user);
+    }
 }
