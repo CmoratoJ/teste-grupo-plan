@@ -17,6 +17,9 @@
 ```
 git clone https://github.com/CmoratoJ/teste-grupo-plan.git
 ```
+```
+git clone https://github.com/CmoratoJ/teste-grupo-plan-front.git
+```
 - Acesse o diretório teste-grupo-plan:
 ```
 cd teste-grupo-plan/  
@@ -39,23 +42,16 @@ docker exec -it nginx-grupoplan bash
 ```
 composer install
 ```
-- Ainda dentro do conteiner crie as tabelas usando as migrations:
+- Ainda dentro do conteiner crie as tabelas usando as migrations e o seeder para criar o usuário admin:
 ```
 php artisan migrate
 ```
-
-<!-- - Para executar os testes automatizados basta executar o comando:
 ```
-php artisan test
-``` -->
-
-<!-- - Lembre-se de deixar um "[worker](https://laravel.com/docs/10.x/queues#running-the-queue-worker)" rodando para o envio de e-mail assíncrono 🚨 -->
-<!-- ```
-php artisan queue:work
-``` -->
+php artisan db:seed --class=PermissionSeeder
+```
+- Após esses passos basta acessar o link :
+```
+http://localhost:8080/
+```
 
 ✅ Pronto! Agora você está pronto para usar o projeto na sua máquina com essas etapas simples.
-
-<!-- # 📃 Documentação e API
-
-- Com o container rodando acesse a documentação [clicando Aqui](http://localhost:8000/api/doc) -->
