@@ -57,5 +57,13 @@ php artisan jwt:secret
 ```
 http://localhost:8080/
 ```
+- Para acessar o sistema, basta informar o email a seguir:
+```
+admin@admin.com
+```
+- E a senha:
+```
+admin@admin.com
+```
 
 ✅ Pronto! Agora você está pronto para usar o projeto na sua máquina com essas etapas simples.
